@@ -39,9 +39,11 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
 
   async login(): Promise<void> {
     const user = await getUser(this.state.user);
-    if (user) {
+   
+    if (this.state.user.uname == user?.uname && this.state.user.password == user?.password) {
       await this.context.setUser(user);
       this.props.navigation.navigate('App');
+
     } else {
       alert('Incorrect username or password.');
     }
@@ -62,7 +64,7 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
               this.setState({
                 user: {
                   ...this.state.user,
-                  uname: text.trim().toLowerCase(),
+                  uname: text.trim(),
                 },
               })
             }
